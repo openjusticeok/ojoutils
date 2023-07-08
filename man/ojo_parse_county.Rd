@@ -10,7 +10,8 @@ ojo_parse_county(
   case = "lower",
   squish = NULL,
   suffix = NULL,
-  counties = ojo_counties
+  counties = ojo_counties,
+  .silent = FALSE
 )
 }
 \description{
