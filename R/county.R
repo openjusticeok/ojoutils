@@ -85,25 +85,6 @@ ojo_parse_county <- function(county, ..., case = "lower", squish = FALSE, suffix
     county <- stringr::str_remove_all(county, "\\s")
   }
 
-  # Handle exceptional cases
-  if (case == "title" & isTRUE(squish)) {
-    county <- dplyr::case_when(
-      tolower(county) == "leflore" ~ "LeFlore",
-      tolower(county) == "mcclain" ~ "McClain",
-      tolower(county) == "mccurtain" ~ "McCurtain",
-      tolower(county) == "rogermills" ~ "RogerMills",
-      TRUE ~ county
-    )
-  } else if (case == "title" & isFALSE(squish)) {
-    county <- dplyr::case_when(
-      tolower(county) == "leflore" ~ "LeFlore",
-      tolower(county) == "mcclain" ~ "McClain",
-      tolower(county) == "mccurtain" ~ "McCurtain",
-      tolower(county) == "rogermills" ~ "Roger Mills",
-      TRUE ~ county
-    )
-  }
-
   # Remember Le Flore and counties with spaces are formatted differently.
   # exceptions <- c("leflore", "mcclain", "mccurtain", "rogermills")
 
