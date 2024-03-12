@@ -1,18 +1,22 @@
 Package: ojoutils
-Title: What the Package Does (One Line, Title Case)
-Version: 0.1.1
-Authors@R: 
-    person("Brancen", "Gregory", , "brancengregory@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Title: A Collection of Nifty Functions and Objects for OJO Analysts
+Version: 0.1.2
+Authors@R: c(
+    person("Brancen", "Gregory", , "brancengregory@gmail.com", role = c("aut", "cre")),
+    person("Andrew", "Bell", , "abell@okpolicy.org", role = "aut"))
+Description: We find ourselves repeating the same simple tasks or running a series of R commands over and over again. No more!
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports:
+    cli,
     dbplyr,
     dplyr,
+    fs,
     rlang,
-    stringr
+    stringr,
+    withr
 Suggests:
     testthat (>= 3.0.0),
     tibble

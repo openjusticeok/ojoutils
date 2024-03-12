@@ -21,6 +21,14 @@ ojo_counties <- c(
 #' @importFrom stringr str_remove_all str_to_lower
 #' @importFrom dplyr if_else
 #'
+#' @param county A string or character vector that represents an Oklahoma county
+#' @param ... Placeholder for future arguments
+#' @param case The case to format the county string to. One of "lower", "upper", or "title".
+#' @param squish A boolean indicator of whether to remove whitespace
+#' @param suffix Specification of a suffix to remove from each item in `county`. For example, " County, OK".
+#' @param counties A vector of valid county names to match on.
+#' @param .silent A currently unused argument.
+#'
 #' @export ojo_parse_county
 #'
 ojo_parse_county <- function(county, ..., case = "lower", squish = NULL, suffix = NULL, counties = ojo_counties, .silent = FALSE) {
