@@ -1,3 +1,7 @@
+# ojoutils 0.1.2 (2024-03-12)
+
+- Adds `ojo_use_template` function to make it easier to add a new blank Quarto report to a project repository.
+- Adds `dir_empty`, styled in `{fs}` fashion, to easily check whether a directory is, well, empty.
 
 # ojoutils 0.1.1 (2023-07-08)
 

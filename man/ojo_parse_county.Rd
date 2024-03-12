@@ -14,6 +14,21 @@ ojo_parse_county(
   .silent = FALSE
 )
 }
+\arguments{
+\item{county}{A string or character vector that represents an Oklahoma county}
+
+\item{...}{Placeholder for future arguments}
+
+\item{case}{The case to format the county string to. One of "lower", "upper", or "title".}
+
+\item{squish}{A boolean indicator of whether to remove whitespace}
+
+\item{suffix}{Specification of a suffix to remove from each item in \code{county}. For example, " County, OK".}
+
+\item{counties}{A vector of valid county names to match on.}
+
+\item{.silent}{A currently unused argument.}
+}
 \description{
 Parse Oklahoma Counties
 }

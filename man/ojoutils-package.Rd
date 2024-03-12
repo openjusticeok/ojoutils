@@ -4,12 +4,17 @@
 \name{ojoutils-package}
 \alias{ojoutils}
 \alias{ojoutils-package}
-\title{ojoutils: What the Package Does (One Line, Title Case)}
+\title{ojoutils: A Collection of Nifty Functions and Objects for OJO Analysts}
 \description{
-What the package does (one paragraph).
+We find ourselves repeating the same simple tasks or running a series of R commands over and over again. No more!
 }
 \author{
 \strong{Maintainer}: Brancen Gregory \email{brancengregory@gmail.com}
+
+Authors:
+\itemize{
+  \item Andrew Bell \email{abell@okpolicy.org}
+}
 
 }
 \keyword{internal}
