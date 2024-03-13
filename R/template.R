@@ -29,8 +29,8 @@ ojo_use_template <- function(
       title = paste0(
         "The path `",
         full_dir,
-        "` does not exist.`",
-        "`\nDo you want to create it?"
+        "` does not exist.",
+        "\nDo you want to create it?"
       )
     )
     # If they say no, just stop
