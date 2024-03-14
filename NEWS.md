@@ -1,3 +1,5 @@
+# ojoutils 0.1.3
+
 # ojoutils 0.1.2 (2024-03-12)
 
 - Adds `ojo_use_template` function to make it easier to add a new blank Quarto report to a project repository.

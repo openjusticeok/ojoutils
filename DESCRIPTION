@@ -1,6 +1,6 @@
 Package: ojoutils
 Title: A Collection of Nifty Functions and Objects for OJO Analysts
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
     person("Brancen", "Gregory", , "brancengregory@gmail.com", role = c("aut", "cre")),
     person("Andrew", "Bell", , "abell@okpolicy.org", role = "aut"))
