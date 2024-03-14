@@ -3,6 +3,7 @@
 export(limit)
 export(ojo_counties)
 export(ojo_parse_county)
+export(ojo_use_template)
 importFrom(dplyr,if_else)
 importFrom(stringr,str_remove_all)
 importFrom(stringr,str_to_lower)

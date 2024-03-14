@@ -5,6 +5,9 @@
 #' @param path The name of the directory where the template should be added. This should be a string representing an absolute path, or a path relative to the current working directory.
 #' @param template The name of the Quarto template to use. This should be a string in the format "username/repository". Default is "openjusticeok/ojo-report-template".
 #' @return This function does not return a value. If the user chooses not to proceed with the operation, the function exits silently.
+#'
+#' @export
+#'
 #' @examples
 #' \dontrun{
 #' ojo_use_template(template = "openjusticeok/ojo-report-template", path = "my_directory")
