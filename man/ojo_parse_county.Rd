@@ -8,7 +8,7 @@ ojo_parse_county(
   county,
   ...,
   case = "lower",
-  squish = NULL,
+  squish = FALSE,
   suffix = NULL,
   counties = ojo_counties,
   .silent = FALSE
