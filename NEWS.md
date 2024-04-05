@@ -1,4 +1,6 @@
-# ojoutils 0.1.3
+# ojoutils 0.1.3 (2024-04-05) 
+
+- Adds  `comma` and `percent` functions to format numbers as strings with commas and percentages, respectively.
 
 # ojoutils 0.1.2 (2024-03-12)
 
