@@ -14,8 +14,13 @@ Imports:
     dbplyr,
     dplyr,
     fs,
+    gert,
+    gh,
+    readr,
+    renv,
     rlang,
     stringr,
+    usethis,
     withr
 Suggests:
     testthat (>= 3.0.0),
