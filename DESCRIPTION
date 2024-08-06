@@ -8,16 +8,25 @@ Description: We find ourselves repeating the same simple tasks or running a seri
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports:
     cli,
     dbplyr,
     dplyr,
     fs,
+    gert,
+    gh,
+    heck,
+    readr,
+    renv,
     rlang,
     stringr,
+    usethis,
     withr
 Suggests:
     testthat (>= 3.0.0),
     tibble
 Config/testthat/edition: 3
+URL: https://github.com/openjusticeok/ojoutils, https://openjusticeok.github.io/ojoutils/
+BugReports: https://github.com/openjusticeok/ojoutils/issues
+Config/testthat/parallel: true
