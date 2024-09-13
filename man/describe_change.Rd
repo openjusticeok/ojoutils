@@ -9,27 +9,25 @@ describe_change(
   after,
   input_unit,
   output_unit,
-  template = "{direction} {change} {unit}",
+  template = NULL,
   direction_phrases = c(increase = "increased by", decrease = "decreased by", none =
     "remained unchanged"),
   include_values = FALSE
 )
 }
 \arguments{
-\item{before}{The initial value to compare.}
+\item{before}{The initial numeric value to compare.}
 
-\item{after}{The value to compare to the initial value.}
+\item{after}{The numeric value to compare to the initial value.}
 
-\item{input_unit}{One of "number", "percent", or "ratio".}
+\item{input_unit}{One of "number", "percent", or "ratio". Determines how the \code{before} and \code{after} values are treated.}
 
-\item{output_unit}{One of "number", "percent", "times", or "points". "points"
-may only be used when \code{input_unit} is "percent" or "ratio".}
+\item{output_unit}{One of "number", "percent", "times", or "points". "points" may only be used when \code{input_unit} is "percent" or "ratio".}
 
-\item{template}{A \code{{glue}} template for the string returned when there is a change.}
+\item{template}{A \code{{glue}} template for the string returned when there is a change. Defaults are provided based on \code{input_unit}.}
 
 \item{direction_phrases}{A named vector with three items: "increase", "decrease", and "none",
-used to customize either the default or custom template. No one likes to hear
-the same thing over and over, after all.}
+used to customize either the default or custom template.}
 
 \item{include_values}{A logical value indicating whether to include \code{before} and \code{after}
 in the change description string.}
@@ -49,7 +47,6 @@ describe_change(
   after = 0.5,
   input_unit = "ratio",
   output_unit = "percent",
-  template = "{direction} {change} {unit}"
 )
 #> decreased by 50 percent
 
@@ -59,7 +56,6 @@ describe_change(
   after = 66,
   input_unit = "percent",
   output_unit = "percent",
-  template = "{direction} {change} {unit}",
   direction_phrases = c(
     increase = "rose by",
     decrease = "fell by",

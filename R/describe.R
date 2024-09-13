@@ -2,15 +2,13 @@
 #'
 #' @description Generate descriptive statements about changes between two values.
 #'
-#' @param before The initial value to compare.
-#' @param after The value to compare to the initial value.
-#' @param input_unit One of "number", "percent", or "ratio".
-#' @param output_unit One of "number", "percent", "times", or "points". "points"
-#' may only be used when `input_unit` is "percent" or "ratio".
-#' @param template A `{glue}` template for the string returned when there is a change.
+#' @param before The initial numeric value to compare.
+#' @param after The numeric value to compare to the initial value.
+#' @param input_unit One of "number", "percent", or "ratio". Determines how the `before` and `after` values are treated.
+#' @param output_unit One of "number", "percent", "times", or "points". "points" may only be used when `input_unit` is "percent" or "ratio".
+#' @param template A `{glue}` template for the string returned when there is a change. Defaults are provided based on `input_unit`.
 #' @param direction_phrases A named vector with three items: "increase", "decrease", and "none",
-#' used to customize either the default or custom template. No one likes to hear
-#' the same thing over and over, after all.
+#' used to customize either the default or custom template.
 #' @param include_values A logical value indicating whether to include `before` and `after`
 #' in the change description string.
 #'
@@ -25,7 +23,6 @@
 #'   after = 0.5,
 #'   input_unit = "ratio",
 #'   output_unit = "percent",
-#'   template = "{direction} {change} {unit}"
 #' )
 #' #> decreased by 50 percent
 #'
@@ -35,7 +32,6 @@
 #'   after = 66,
 #'   input_unit = "percent",
 #'   output_unit = "percent",
-#'   template = "{direction} {change} {unit}",
 #'   direction_phrases = c(
 #'     increase = "rose by",
 #'     decrease = "fell by",
@@ -53,6 +49,8 @@
 #'   template = "{direction} {change} people"
 #' )
 #' #> increased by 2 people
+#'
+#' @export
 #'
 describe_change <- function(
     before,
