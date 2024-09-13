@@ -55,44 +55,41 @@
 #' #> increased by 2 people
 #'
 describe_change <- function(
-  before,
-  after,
-  input_unit,
-  output_unit,
-  template = "{direction} {change} {unit}",
-  direction_phrases = c(
-    increase = "increased by",
-    decrease = "decreased by",
-    none = "remained unchanged"
-  ),
-  include_values = FALSE
+    before,
+    after,
+    input_unit,
+    output_unit,
+    template = NULL,
+    direction_phrases = c(
+      increase = "increased by",
+      decrease = "decreased by",
+      none = "remained unchanged"
+    ),
+    include_values = FALSE
 ) {
   # Check inputs
   if (!is.numeric(before) || !is.numeric(after)) {
     rlang::abort("Both 'before' and 'after' must be numeric.")
   }
 
+  # TODO: Handle zero values--possibly with a tolerance argument--which could
+  # create downstream Inf or Undefined results. Right now we fail
+  if (before == 0 || after == 0) {
+    rlang::abort("'before' and 'after' must both be non-zero values.")
+  }
+
   # Validate input_unit and output_unit
   input_unit <- rlang::arg_match(
     input_unit,
-    values = c(
-      "number",
-      "percent",
-      "ratio"
-    )
+    values = c("number", "percent", "ratio")
   )
 
   output_unit <- rlang::arg_match(
     output_unit,
-    values = c(
-      "number",
-      "percent",
-      "points",
-      "times"
-    )
+    values = c("number", "percent", "points", "times")
   )
 
-  # Calculate change and apply absolute flag if needed
+  # Calculate change and absolute change
   change <- after - before
   abs_change <- abs(change)
 
@@ -100,42 +97,64 @@ describe_change <- function(
   direction <- dplyr::case_when(
     change > 0 ~ direction_phrases["increase"],
     change < 0 ~ direction_phrases["decrease"],
-    TRUE ~ ""
+    TRUE ~ NA_character_
   )
 
   # Handle unchanged case early
   if (change == 0) {
-    return(glue::glue(direction_phrases["none"])) # Making a glue object so it inherits the same print method as the glue template
+    if (include_values) {
+      return(glue::glue("{direction_phrases['none']} at {before}"))
+    }
+    return(glue::glue(direction_phrases["none"]))
   }
 
   # Convert change_value based on input/output units
   change_value <- dplyr::case_when(
-    output_unit == "points" & input_unit == "percent" ~ abs_change,
-    output_unit == "percent" ~ (abs_change / before) * 100,
-    output_unit == "times" ~ abs(after / before),
-    output_unit == "number" ~ abs_change,
-    TRUE ~ NA_integer_
+    input_unit == "number" && output_unit == "number" ~ abs_change,
+    input_unit == "number" && output_unit == "percent" ~ (abs_change / before) * 100,
+    input_unit == "number" && output_unit == "points" ~ NA_real_,
+    input_unit == "number" && output_unit == "times" ~ abs(after / before),
+    input_unit == "percent" && output_unit == "number" ~ NA_real_,
+    input_unit == "percent" && output_unit == "percent" ~ (abs_change / before) * 100,
+    input_unit == "percent" && output_unit == "points" ~ abs_change,
+    input_unit == "percent" && output_unit == "times" ~ after / before,
+    input_unit == "ratio" && output_unit == "number" ~ NA_real_,
+    input_unit == "ratio" && output_unit == "percent" ~ (abs_change / before) * 100,
+    input_unit == "ratio" && output_unit == "points" ~ abs_change * 100,
+    input_unit == "ratio" && output_unit == "times" ~ abs(after / before),
+    TRUE ~ NA_real_
   )
 
   if (is.na(change_value)) {
-    rlang::abort(glue::glue("This error should not be reachable. Please report a bug for output unit: {output_unit}", output_unit))
+    rlang::abort(glue::glue("Cannot convert from {input_unit} to {output_unit}"))
   }
 
-  # Handle the correct unit label for percentage points
+  # Use cli's built-in pluralization
   unit <- dplyr::case_when(
-    output_unit == "points" ~ "percentage points",
-    output_unit == "percent" ~ "percent",
-    output_unit == "times" ~ "times",
+    output_unit == "points" ~ cli::pluralize("{cli::qty(change_value)}percentage point{?s}"),
     TRUE ~ output_unit
   )
 
-  # Construct the description
+  if (is.null(template)) {
+    template <- dplyr::if_else(
+      input_unit == "number",
+      "{direction} {change}",
+      "{direction} {change} {unit}"
+    )
+  }
+
+  # Construct the description with glue's pluralization
   description <- glue::glue(
     template,
     direction = direction,
-    change = change_value,
-    unit = unit
+    change = round(change_value, 2),
+    unit = glue::glue(unit)
   )
+
+  # Include values if required
+  if (include_values) {
+    description <- glue::glue("{description}, from {before} to {after}")
+  }
 
   return(description)
 }
