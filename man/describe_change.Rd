@@ -24,7 +24,7 @@ describe_change(
 
 \item{output_unit}{One of "number", "percent", "times", or "points". "points" may only be used when \code{input_unit} is "percent" or "ratio".}
 
-\item{template}{A \code{{glue}} template for the string returned when there is a change. Defaults are provided based on \code{input_unit}.}
+\item{template}{A \code{{glue}} template for the string returned when there is a change. Defaults are provided based on \code{output_unit}.}
 
 \item{direction_phrases}{A named vector with three items: "increase", "decrease", and "none",
 used to customize either the default or custom template.}

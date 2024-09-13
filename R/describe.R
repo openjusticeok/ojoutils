@@ -6,7 +6,7 @@
 #' @param after The numeric value to compare to the initial value.
 #' @param input_unit One of "number", "percent", or "ratio". Determines how the `before` and `after` values are treated.
 #' @param output_unit One of "number", "percent", "times", or "points". "points" may only be used when `input_unit` is "percent" or "ratio".
-#' @param template A `{glue}` template for the string returned when there is a change. Defaults are provided based on `input_unit`.
+#' @param template A `{glue}` template for the string returned when there is a change. Defaults are provided based on `output_unit`.
 #' @param direction_phrases A named vector with three items: "increase", "decrease", and "none",
 #' used to customize either the default or custom template.
 #' @param include_values A logical value indicating whether to include `before` and `after`
@@ -135,7 +135,7 @@ describe_change <- function(
 
   if (is.null(template)) {
     template <- dplyr::if_else(
-      input_unit == "number",
+      output_unit == "number",
       "{direction} {change}",
       "{direction} {change} {unit}"
     )
