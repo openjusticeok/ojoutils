@@ -16,7 +16,7 @@ describe_change(
 )
 }
 \arguments{
-\item{before}{The initial numeric value to compare.}
+\item{before}{The initial numeric value to compare. For some unit combinations \code{before} must be non-zero to avoid divide-by-zero errors.}
 
 \item{after}{The numeric value to compare to the initial value.}
 
@@ -24,7 +24,7 @@ describe_change(
 
 \item{output_unit}{One of "number", "percent", "times", or "points". "points" may only be used when \code{input_unit} is "percent" or "ratio".}
 
-\item{template}{A \code{{glue}} template for the string returned when there is a change. Defaults are provided based on \code{output_unit}.}
+\item{template}{A \code{{glue}} template for the string returned when there is a change. Defaults are provided based on \code{output_unit}. Possible template variables are: \code{direction}, \code{change}, and \code{unit}.}
 
 \item{direction_phrases}{A named vector with three items: "increase", "decrease", and "none",
 used to customize either the default or custom template.}

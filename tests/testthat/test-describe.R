@@ -61,18 +61,16 @@ test_that("Custom template works as expected", {
     "increased by 2 people"
   )
 
-  # TODO: Implement pluralization in template argument
   expect_equal(
     describe_change(
       before = 10,
       after = 11,
       input_unit = "number",
       output_unit = "number",
-      template = "{direction} {change} people"
+      template = "{direction} {change} pe{?rson/ople}"
     ),
-    "increased by 1 people"
+    "increased by 1 person"
   )
-
 })
 
 test_that("Handling ratio to points conversion", {
@@ -111,19 +109,11 @@ test_that("Handling number to times conversion", {
 
 })
 
-test_that("Error is raised for zero values", {
+test_that("Error is raised for zero value in problematic case", {
   expect_error(
     describe_change(
       before = 0,
       after = 2,
-      input_unit = "number",
-      output_unit = "percent"
-    )
-  )
-  expect_error(
-    describe_change(
-      before = 2,
-      after = 0,
       input_unit = "number",
       output_unit = "percent"
     )
@@ -137,6 +127,19 @@ test_that("Error is raised for invalid unit conversion", {
       after = 15,
       input_unit = "number",
       output_unit = "points"
+    )
+  )
+})
+
+test_that("Error is raised with template supplied and include_values true", {
+  expect_error(
+    describe_change(
+      before = 10,
+      after = 12,
+      input_unit = "number",
+      output_unit = "number",
+      template = "{direction} {change} people",
+      include_values = TRUE
     )
   )
 })
