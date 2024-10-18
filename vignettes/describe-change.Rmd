@@ -7,17 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r setup, include=FALSE}
 library(ojoutils)
 ```
-
 
 # Introduction
 
@@ -41,7 +40,24 @@ describe_change(
 
 In this example, the input values are treated as ratios (e.g., 1 represents 100%, and 0.5 represents 50%), and the output is expressed as a percentage.
 
-# Custom Phrasing
+## Including Values in the Description
+
+If you want to include the initial (`before`) and new (`after`) values in the output, set the `include_values` argument to `TRUE`. This can be useful when you want to provide more context in your description.
+
+```{r}
+# Including before and after values in the description
+describe_change(
+  before = 100,
+  after = 120,
+  input_unit = "number",
+  output_unit = "number",
+  include_values = TRUE
+)
+```
+
+By setting `include_values = TRUE`, the output now includes the original values, offering more detailed information about the change.
+
+## Custom Phrasing
 
 You can customize how the function expresses increases, decreases, or no changes by providing a `direction_phrases` argument. This argument allows you to specify your own phrasing for each case.
 
@@ -79,23 +95,6 @@ describe_change(
 
 The template argument gives you complete control over the output format, making the function adaptable to various use cases.
 
-## Including Values in the Description
-
-If you want to include the initial (`before`) and new (`after`) values in the output, set the `include_values` argument to `TRUE`. This can be useful when you want to provide more context in your description.
-
-```{r}
-# Including before and after values in the description
-describe_change(
-  before = 100,
-  after = 120,
-  input_unit = "number",
-  output_unit = "number",
-  include_values = TRUE
-)
-```
-
-By setting `include_values = TRUE`, the output now includes the original values, offering more detailed information about the change.
-
 # Handling Edge Cases
 
 The function is designed to handle common edge cases, such as when the initial and new values are the same:
@@ -111,6 +110,22 @@ describe_change(
 ```
 
 In this case, the function returns a message indicating that there was no change.
+
+## Invalid Input/Output Unit Combinations
+
+The describe_change function ensures that the combination of input_unit and output_unit is valid for the given values. For example, certain combinations require the before value to be non-zero. If an invalid combination is detected, an error is raised:
+
+```{r, error=TRUE}
+# Invalid combination where 'before' is zero and output unit is 'percent'
+describe_change(
+  before = 0,
+  after = 10,
+  input_unit = "number",
+  output_unit = "percent"
+)
+```
+
+This helps prevent issues like divide-by-zero errors, especially when working with percentages or ratios. The function will guide you toward valid input and output unit selections.
 
 # Conclusion
 
