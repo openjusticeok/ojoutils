@@ -6,3 +6,5 @@
 .quarto
 local/
 secrets/
+/doc/
+/Meta/

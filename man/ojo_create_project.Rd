@@ -4,8 +4,20 @@
 \alias{ojo_create_project}
 \title{Create Project}
 \usage{
-ojo_create_project(name = NULL, dir = ".", private = TRUE)
+ojo_create_project(
+  name = NULL,
+  description = NULL,
+  dir = ".",
+  private = TRUE,
+  packages = NULL
+)
 }
 \description{
 Creates a new R project with a standard directory structure
 }
+\section{Getting Started}{
+
+To learn more about creating projects, see the vignette:
+\code{vignette("project-creation", package = "ojotools")}
+}
+

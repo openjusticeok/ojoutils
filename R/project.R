@@ -1,6 +1,11 @@
 #' @title Create Project
 #' @description Creates a new R project with a standard directory structure
 #'
+#' @section Getting Started:
+#' To learn more about creating projects, see the vignette:
+#' \code{vignette("project-creation", package = "ojotools")}
+#'
+#'
 ojo_create_project <- function(name = NULL, description = NULL, dir = ".", private = TRUE, packages = NULL) {
   # Get the initial working directory
   init_wd <- fs::path_wd()
