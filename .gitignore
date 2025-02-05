@@ -1,11 +1,15 @@
 .Rproj.user
+.Renviron
 .Rhistory
+client_secret_312765454551-lslmrvger7rh9o7ldq1nl384t3ubfu8t.apps.googleusercontent.com.json
+googlecloudstorager-auth-key.json
+inst/doc
+/doc/
 .Rdata
 .httr-oauth
 .DS_Store
 .quarto
 local/
 secrets/
-/doc/
 /Meta/
 docs

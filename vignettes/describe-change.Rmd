@@ -1,0 +1,136 @@
+---
+title: "How to use `describe_change`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use `describe_change`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+library(ojoutils)
+```
+
+# Introduction
+
+The `describe_change` function provides a straightforward way to describe numerical changes between two values (`before` and `after`). The function is flexible, allowing different ways to express the change, such as using percentages, ratios, or numbers, and can be customized through templates and phrasing.
+
+This vignette demonstrates how to use the `describe_change` function in various scenarios, including basic usage, custom phrasing, and custom templates.
+
+# Basic Usage
+
+To describe the change between two numeric values, you can call `describe_change` with the initial value (`before`), the new value (`after`), and specify the type of input and output units. For example:
+
+```{r}
+# Describing a percentage decrease
+describe_change(
+  before = 1,
+  after = 0.5,
+  input_unit = "ratio",
+  output_unit = "percent"
+)
+```
+
+In this example, the input values are treated as ratios (e.g., 1 represents 100%, and 0.5 represents 50%), and the output is expressed as a percentage.
+
+## Including Values in the Description
+
+If you want to include the initial (`before`) and new (`after`) values in the output, set the `include_values` argument to `TRUE`. This can be useful when you want to provide more context in your description.
+
+```{r}
+# Including before and after values in the description
+describe_change(
+  before = 100,
+  after = 120,
+  input_unit = "number",
+  output_unit = "number",
+  include_values = TRUE
+)
+```
+
+By setting `include_values = TRUE`, the output now includes the original values, offering more detailed information about the change.
+
+## Custom Phrasing
+
+You can customize how the function expresses increases, decreases, or no changes by providing a `direction_phrases` argument. This argument allows you to specify your own phrasing for each case.
+
+```{r}
+# Custom phrasing for increase and decrease
+describe_change(
+  before = 33,
+  after = 66,
+  input_unit = "percent",
+  output_unit = "percent",
+  direction_phrases = c(
+    increase = "rose by",
+    decrease = "fell by",
+    none = "stagnated"
+  )
+)
+```
+
+Here, we used `"rose by"` for increases and `"fell by"` for decreases instead of the default `"increased by"` and `"decreased by"`.
+
+# Custom Template
+
+The `describe_change` function supports custom templates via the template argument. You can include placeholders such as `{direction}`, `{change}`, and `{unit}` to dynamically insert values into the final description.
+
+```{r}
+# Custom template for describing the change in people
+describe_change(
+  before = 10,
+  after = 12,
+  input_unit = "number",
+  output_unit = "number",
+  template = "{direction} {change} people"
+)
+```
+
+The template argument gives you complete control over the output format, making the function adaptable to various use cases.
+
+# Handling Edge Cases
+
+The function is designed to handle common edge cases, such as when the initial and new values are the same:
+
+```{r}
+# No change in values
+describe_change(
+  before = 50,
+  after = 50,
+  input_unit = "number",
+  output_unit = "number"
+)
+```
+
+In this case, the function returns a message indicating that there was no change.
+
+## Invalid Input/Output Unit Combinations
+
+The describe_change function ensures that the combination of input_unit and output_unit is valid for the given values. For example, certain combinations require the before value to be non-zero. If an invalid combination is detected, an error is raised:
+
+```{r, error=TRUE}
+# Invalid combination where 'before' is zero and output unit is 'percent'
+describe_change(
+  before = 0,
+  after = 10,
+  input_unit = "number",
+  output_unit = "percent"
+)
+```
+
+This helps prevent issues like divide-by-zero errors, especially when working with percentages or ratios. The function will guide you toward valid input and output unit selections.
+
+# Conclusion
+
+The `describe_change` function is a flexible tool for describing numerical changes. Whether you're working with percentages, ratios, or raw numbers, this function provides clear, customizable descriptions of changes between two values.
+
+The ability to modify templates and direction phrases makes the function adaptable for various contexts, from simple percentage changes to more complex descriptions that require including specific units or values.
+
+For more advanced usage and customization, refer to the function's documentation and examples.

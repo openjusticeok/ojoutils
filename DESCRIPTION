@@ -16,6 +16,7 @@ Imports:
     fs,
     gert,
     gh,
+    glue,
     readr,
     renv,
     rlang,
@@ -23,10 +24,12 @@ Imports:
     usethis,
     withr
 Suggests:
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0),
     tibble,
     knitr,
     rmarkdown
-VignetteBuilder: knitr
 Config/testthat/edition: 3
+VignetteBuilder: knitr
 URL: https://openjusticeok.github.io/ojoutils/
