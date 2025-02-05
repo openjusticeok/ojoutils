@@ -5,4 +5,11 @@ client_secret_312765454551-lslmrvger7rh9o7ldq1nl384t3ubfu8t.apps.googleuserconte
 googlecloudstorager-auth-key.json
 inst/doc
 /doc/
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
+local/
+secrets/
 /Meta/
+docs
