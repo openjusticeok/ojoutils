@@ -3,6 +3,8 @@
 export(describe_change)
 export(limit)
 export(ojo_counties)
+export(ojo_list_counties)
+export(ojo_oscn_counties)
 export(ojo_parse_county)
 export(ojo_use_template)
 importFrom(dplyr,if_else)
