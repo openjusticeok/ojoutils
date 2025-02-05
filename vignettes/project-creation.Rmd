@@ -1,0 +1,82 @@
+---
+title: "Creating New OJO Projects"
+author: "Open Justice Oklahoma"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating New OJO Projects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The `ojo_create_project()` function provides a standardized way to create new R projects for Open Justice Oklahoma. It sets up a project with our standard directory structure, initializes version control, and configures common dependencies.
+
+## Basic Usage
+
+The simplest way to create a new project is to provide a name and description:
+
+```r
+ojo_create_project(
+  name = "my-new-project",
+  description = "A project to analyze court data"
+)
+```
+
+This will:
+
+1. Create a new GitHub repository from our template
+2. Clone it to your local machine
+3. Initialize renv for dependency management
+4. Set up basic README content
+5. Make an initial commit and push to GitHub
+
+## Function Parameters
+
+- `name`: The name of your project (required)
+- `description`: A brief description of the project
+- `dir`: Where to create the project (defaults to current directory)
+- `private`: Whether the GitHub repository should be private (defaults to TRUE)
+- `packages`: Additional R packages to install (not yet implemented)
+
+## Example with All Parameters
+
+Here's an example using all available parameters:
+
+```r
+ojo_create_project(
+  name = "court-data-analysis",
+  description = "Analysis of Oklahoma court data for 2023",
+  dir = "~/projects",
+  private = TRUE
+)
+```
+
+## Requirements
+
+To use this function, you need:
+
+1. A GitHub account with access to the OpenJusticeOK organization
+2. SSH keys configured for GitHub
+
+## Common Issues
+
+- If you get authentication errors, make sure your GitHub SSH keys are properly configured
+- Project names should follow R package naming conventions (letters, numbers, and hyphens)
+
+## Future Enhancements
+
+The following features are planned:
+
+- Interactive CLI for project creation
+- Support for custom project templates
+- Additional project configuration options
+- Package dependency management

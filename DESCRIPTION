@@ -8,16 +8,25 @@ Description: We find ourselves repeating the same simple tasks or running a seri
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports:
     cli,
     dbplyr,
     dplyr,
     fs,
+    gert,
+    gh,
+    readr,
+    renv,
     rlang,
     stringr,
+    usethis,
     withr
 Suggests:
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 Config/testthat/edition: 3
+URL: https://openjusticeok.github.io/ojoutils/
