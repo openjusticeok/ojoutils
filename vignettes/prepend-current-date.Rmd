@@ -1,0 +1,102 @@
+---
+title: "How to use `prepend_current_date`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use `prepend_current_date`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+library(ojoutils)
+```
+
+# Introduction
+
+The `prepend_current_date` function provides a convenient way to add the current date to a file name. This can be useful for versioning files or keeping track of when files were created or modified.
+
+This vignette demonstrates how to use the `prepend_current_date` function in various scenarios, including basic usage and handling different input formats.
+
+# Basic Usage
+
+To add the current date to a file name, you can call `prepend_current_date` with the file name as an argument. For example:
+
+```{r}
+# Adding the current date to a file name
+prepend_current_date("data/output/parties.csv")
+```
+
+In this example, if today's date were 2025-03-17, the output would be:
+
+```
+"data/output/2025_03_17_parties.csv"
+```
+
+# Handling Different Input Formats
+
+The `prepend_current_date` function is designed to handle different input formats as specified in the issue. Here are some examples:
+
+## Example 1: Using `here` package
+
+```{r}
+# Using here package with prepend_current_date
+write_csv(parties, here::here(prepend_current_date("data/output/parties.csv")))
+```
+
+## Example 2: Nested `prepend_current_date` inside `here`
+
+```{r}
+# Nested prepend_current_date inside here
+write_csv(parties, prepend_current_date(here::here("data/output/parties.csv")))
+```
+
+## Example 3: Combining `here` and `prepend_current_date`
+
+```{r}
+# Combining here and prepend_current_date
+write_csv(parties, here::here("data/output/", prepend_current_date("parties.csv")))
+```
+
+# Using the `append` Argument
+
+The `prepend_current_date` function also provides an `append` argument that allows you to append the current date to the file name instead of prepending it. Here are some examples:
+
+## Example 1: Appending the Date
+
+```{r}
+# Appending the current date to a file name
+prepend_current_date("data/output/parties.csv", append = TRUE)
+```
+
+In this example, if today's date were 2025-03-17, the output would be:
+
+```
+"data/output/parties_2025_03_17.csv"
+```
+
+## Example 2: Using `here` package with `append`
+
+```{r}
+# Using here package with prepend_current_date and append
+write_csv(parties, here::here(prepend_current_date("data/output/parties.csv", append = TRUE)))
+```
+
+## Example 3: Nested `prepend_current_date` with `append` inside `here`
+
+```{r}
+# Nested prepend_current_date with append inside here
+write_csv(parties, prepend_current_date(here::here("data/output/parties.csv"), append = TRUE))
+```
+
+# Conclusion
+
+The `prepend_current_date` function is a simple yet powerful tool for adding the current date to file names. It helps in organizing and versioning files effectively. By handling different input formats and providing the `append` argument, it offers flexibility in various scenarios.
+
+For more advanced usage and customization, refer to the function's documentation and examples.
