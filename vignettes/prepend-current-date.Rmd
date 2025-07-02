@@ -47,21 +47,21 @@ The `prepend_current_date` function is designed to handle different input format
 
 ```{r}
 # Using here package with prepend_current_date
-write_csv(parties, here::here(prepend_current_date("data/output/parties.csv")))
+readr::write_csv(parties, here::here(prepend_current_date("data/output/parties.csv")))
 ```
 
 ## Example 2: Nested `prepend_current_date` inside `here`
 
 ```{r}
 # Nested prepend_current_date inside here
-write_csv(parties, prepend_current_date(here::here("data/output/parties.csv")))
+readr::write_csv(parties, prepend_current_date(here::here("data/output/parties.csv")))
 ```
 
 ## Example 3: Combining `here` and `prepend_current_date`
 
 ```{r}
 # Combining here and prepend_current_date
-write_csv(parties, here::here("data/output/", prepend_current_date("parties.csv")))
+readr::write_csv(parties, here::here("data/output/", prepend_current_date("parties.csv")))
 ```
 
 # Using the `append` Argument
@@ -85,14 +85,14 @@ In this example, if today's date were 2025-03-17, the output would be:
 
 ```{r}
 # Using here package with prepend_current_date and append
-write_csv(parties, here::here(prepend_current_date("data/output/parties.csv", append = TRUE)))
+readr::write_csv(parties, here::here(prepend_current_date("data/output/parties.csv", append = TRUE)))
 ```
 
 ## Example 3: Nested `prepend_current_date` with `append` inside `here`
 
 ```{r}
 # Nested prepend_current_date with append inside here
-write_csv(parties, prepend_current_date(here::here("data/output/parties.csv"), append = TRUE))
+readr::write_csv(parties, prepend_current_date(here::here("data/output/parties.csv"), append = TRUE))
 ```
 
 # Conclusion

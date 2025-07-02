@@ -47,21 +47,21 @@ The `stamp_date` function is designed to handle different input formats as speci
 
 ```{r}
 # Using here package with stamp_date
-write_csv(parties, here::here(stamp_date("data/output/parties.csv")))
+readr::write_csv(parties, here::here(stamp_date("data/output/parties.csv")))
 ```
 
 ## Example 2: Nested `stamp_date` inside `here`
 
 ```{r}
 # Nested stamp_date inside here
-write_csv(parties, stamp_date(here::here("data/output/parties.csv")))
+readr::write_csv(parties, stamp_date(here::here("data/output/parties.csv")))
 ```
 
 ## Example 3: Combining `here` and `stamp_date`
 
 ```{r}
 # Combining here and stamp_date
-write_csv(parties, here::here("data/output/", stamp_date("parties.csv")))
+readr::write_csv(parties, here::here("data/output/", stamp_date("parties.csv")))
 ```
 
 # Conclusion
