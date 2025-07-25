@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test": "R -e 'install.packages(\"devtools\"); devtools::install_deps(dependencies = TRUE); devtools::test()'",
+    "build": "Rscript -e 'install.packages(\"devtools\")' && Rscript -e 'devtools::install_deps()' && Rscript -e 'devtools::build()'",
+    "launch": "R"
+  }
+}
