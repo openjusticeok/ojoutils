@@ -11,3 +11,8 @@
 ^\.github$
 ^client_secret.*\.json$
 ^.*auth-key\.json$
+^src/\.cargo$
+^src/rust/vendor$
+^src/rust/target$
+^src/Makevars$
+^src/Makevars\.win$
