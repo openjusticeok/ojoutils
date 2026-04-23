@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   describe-change: describe-change.html
   project-creation: project-creation.html
-last_built: 2026-04-23T22:33Z
+last_built: 2026-04-23T22:49Z
 urls:
   reference: https://openjusticeok.github.io/ojoutils/reference
   article: https://openjusticeok.github.io/ojoutils/articles

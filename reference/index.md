@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`count_interval()`](https://openjusticeok.github.io/ojoutils/reference/count_interval.md)
+  : Count intervals over time periods
 - [`describe_change()`](https://openjusticeok.github.io/ojoutils/reference/describe_change.md)
   : Describe Change
 - [`dir_empty()`](https://openjusticeok.github.io/ojoutils/reference/dir_empty.md)
