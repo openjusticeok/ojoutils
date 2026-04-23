@@ -13,3 +13,6 @@ local/
 secrets/
 /Meta/
 docs
+src/rust/vendor
+src/Makevars
+src/Makevars.win
