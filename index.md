@@ -1,6 +1,6 @@
 # ojoutils
 
-[![R-CMD-check](https://github.com/openjusticeok/ojodb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/openjusticeok/ojodb/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/openjusticeok/ojoutils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/openjusticeok/ojoutils/actions/workflows/R-CMD-check.yaml)
 
 A Collection of Nifty Functions and Objects for OJO Analysts
 
