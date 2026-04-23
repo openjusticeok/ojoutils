@@ -15,6 +15,26 @@ remotes::install_github("openjusticeok/ojoutils")
 
 ## Features
 
+### Oklahoma Data
+
+- `ojo_counties` - Vector of Oklahoma county names
+- [`ojo_parse_county()`](https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.md) -
+  Standardize Oklahoma county names
+
+### Data Analysis
+
+- [`count_interval()`](https://openjusticeok.github.io/ojoutils/reference/count_interval.md) -
+  Count active intervals over time periods using Rust/Arrow backend
+- [`limit()`](https://openjusticeok.github.io/ojoutils/reference/limit.md) -
+  SQL-style row limiting
+
+### Project Management
+
+- [`ojo_create_project()`](https://openjusticeok.github.io/ojoutils/reference/ojo_create_project.md) -
+  Create standardized OJO project from template
+- [`ojo_use_template()`](https://openjusticeok.github.io/ojoutils/reference/ojo_use_template.md) -
+  Add Quarto report template to project
+
 ### Google Cloud Storage (GCS)
 
 - [`gcs_auth_bucket()`](https://openjusticeok.github.io/ojoutils/reference/gcs_auth_bucket.md) -
@@ -27,26 +47,6 @@ remotes::install_github("openjusticeok/ojoutils")
   List objects in a GCS bucket
 - [`tar_gcs_csv()`](https://openjusticeok.github.io/ojoutils/reference/tar_gcs_csv.md) -
   Create targets pipeline targets for GCS CSVs
-
-### Data Analysis
-
-- [`count_interval()`](https://openjusticeok.github.io/ojoutils/reference/count_interval.md) -
-  Count active intervals over time periods using Rust/Arrow backend
-- [`limit()`](https://openjusticeok.github.io/ojoutils/reference/limit.md) -
-  SQL-style row limiting
-
-### Oklahoma Data
-
-- `ojo_counties` - Vector of Oklahoma county names
-- [`ojo_parse_county()`](https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.md) -
-  Standardize Oklahoma county names
-
-### Project Management
-
-- [`ojo_create_project()`](https://openjusticeok.github.io/ojoutils/reference/ojo_create_project.md) -
-  Create standardized OJO project from template
-- [`ojo_use_template()`](https://openjusticeok.github.io/ojoutils/reference/ojo_use_template.md) -
-  Add Quarto report template to project
 
 ## Documentation
 
