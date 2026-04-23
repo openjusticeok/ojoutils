@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ojoutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,13 @@
 
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="ojoutils-020-2026-04-23">ojoutils 0.2.0 (2026-04-23)<a class="anchor" aria-label="anchor" href="#ojoutils-020-2026-04-23"></a></h2>
+<ul><li>Adds Google Cloud Storage (GCS) utilities: <code><a href="../reference/gcs_auth_bucket.html">gcs_auth_bucket()</a></code>, <code><a href="../reference/gcs_read_csv.html">gcs_read_csv()</a></code>, <code><a href="../reference/gcs_write_csv.html">gcs_write_csv()</a></code>, <code><a href="../reference/gcs_list_objects.html">gcs_list_objects()</a></code>, and <code><a href="../reference/tar_gcs_csv.html">tar_gcs_csv()</a></code> for working with GCS via the arrow package.</li>
+<li>Adds <code><a href="../reference/count_interval.html">count_interval()</a></code> function with Rust and Arrow backend for counting active intervals over time periods.</li>
+<li>Adds <code>README.Rmd</code> and <code>README.md</code> to repo.</li>
+<li>Fixes <code><a href="../reference/ojo_parse_county.html">ojo_parse_county()</a></code> to eliminate dplyr 1.2.0 deprecation warning by replacing <code>case_when()</code> with if/else statements.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.3" id="ojoutils-013">ojoutils 0.1.3<a class="anchor" aria-label="anchor" href="#ojoutils-013"></a></h2>
 </div>

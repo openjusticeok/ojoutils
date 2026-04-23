@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ojoutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,8 +52,83 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-We find ourselves repeating the same simple tasks or running a series of R commands over and over again. No more!
+  <main id="main" class="col-md-9"><p><a href="https://github.com/openjusticeok/ojodb/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/openjusticeok/ojodb/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <!-- badges: end --></p>
+<!-- badges: start -->
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div class="section level1">
+<div class="page-header"><h1 id="ojoutils">ojoutils<a class="anchor" aria-label="anchor" href="#ojoutils"></a>
+</h1></div>
+<p>A Collection of Nifty Functions and Objects for OJO Analysts</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of ojoutils from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"openjusticeok/ojoutils"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+</h2>
+<div class="section level3">
+<h3 id="google-cloud-storage-gcs">Google Cloud Storage (GCS)<a class="anchor" aria-label="anchor" href="#google-cloud-storage-gcs"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/gcs_auth_bucket.html">gcs_auth_bucket()</a></code> - Authenticate with GCS and set default bucket</li>
+<li>
+<code><a href="reference/gcs_read_csv.html">gcs_read_csv()</a></code> - Read CSV files from GCS using Arrow</li>
+<li>
+<code><a href="reference/gcs_write_csv.html">gcs_write_csv()</a></code> - Write CSV files to GCS</li>
+<li>
+<code><a href="reference/gcs_list_objects.html">gcs_list_objects()</a></code> - List objects in a GCS bucket</li>
+<li>
+<code><a href="reference/tar_gcs_csv.html">tar_gcs_csv()</a></code> - Create targets pipeline targets for GCS CSVs</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="data-analysis">Data Analysis<a class="anchor" aria-label="anchor" href="#data-analysis"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/count_interval.html">count_interval()</a></code> - Count active intervals over time periods using Rust/Arrow backend</li>
+<li>
+<code><a href="reference/limit.html">limit()</a></code> - SQL-style row limiting</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="oklahoma-data">Oklahoma Data<a class="anchor" aria-label="anchor" href="#oklahoma-data"></a>
+</h3>
+<ul>
+<li>
+<code>ojo_counties</code> - Vector of Oklahoma county names</li>
+<li>
+<code><a href="reference/ojo_parse_county.html">ojo_parse_county()</a></code> - Standardize Oklahoma county names</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="project-management">Project Management<a class="anchor" aria-label="anchor" href="#project-management"></a>
+</h3>
+<ul>
+<li>
+<code><a href="reference/ojo_create_project.html">ojo_create_project()</a></code> - Create standardized OJO project from template</li>
+<li>
+<code><a href="reference/ojo_use_template.html">ojo_use_template()</a></code> - Add Quarto report template to project</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>See the <a href="https://openjusticeok.github.io/ojoutils/">package website</a> for full documentation and vignettes.</p>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>GPL (&gt;= 3)</p>
+</div>
+</div>
+
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
@@ -78,7 +153,12 @@ We find ourselves repeating the same simple tasks or running a series of R comma
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://extendr.github.io/extendr/extendr_api/" class="external-link"><img src="https://img.shields.io/badge/extendr-%5E0.9.0-276DC2" alt="extendr"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

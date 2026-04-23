@@ -1,5 +1,25 @@
 # Changelog
 
+## ojoutils 0.2.0 (2026-04-23)
+
+- Adds Google Cloud Storage (GCS) utilities:
+  [`gcs_auth_bucket()`](https://openjusticeok.github.io/ojoutils/reference/gcs_auth_bucket.md),
+  [`gcs_read_csv()`](https://openjusticeok.github.io/ojoutils/reference/gcs_read_csv.md),
+  [`gcs_write_csv()`](https://openjusticeok.github.io/ojoutils/reference/gcs_write_csv.md),
+  [`gcs_list_objects()`](https://openjusticeok.github.io/ojoutils/reference/gcs_list_objects.md),
+  and
+  [`tar_gcs_csv()`](https://openjusticeok.github.io/ojoutils/reference/tar_gcs_csv.md)
+  for working with GCS via the arrow package.
+- Adds
+  [`count_interval()`](https://openjusticeok.github.io/ojoutils/reference/count_interval.md)
+  function with Rust and Arrow backend for counting active intervals
+  over time periods.
+- Adds `README.Rmd` and `README.md` to repo.
+- Fixes
+  [`ojo_parse_county()`](https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.md)
+  to eliminate dplyr 1.2.0 deprecation warning by replacing
+  `case_when()` with if/else statements.
+
 ## ojoutils 0.1.3
 
 ## ojoutils 0.1.2 (2024-03-12)
