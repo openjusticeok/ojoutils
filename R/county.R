@@ -49,11 +49,13 @@ ojo_parse_county <- function(county, ..., case = "lower", squish = NULL, suffix 
   )
 
   # Apply Casing
-  county <- dplyr::case_when(
-    case == "lower" ~ stringr::str_to_lower(county),
-    case == "upper" ~ stringr::str_to_upper(county),
-    case == "title" ~ stringr::str_to_title(county)
-  )
+  if (case == "lower") {
+    county <- stringr::str_to_lower(county)
+  } else if (case == "upper") {
+    county <- stringr::str_to_upper(county)
+  } else if (case == "title") {
+    county <- stringr::str_to_title(county)
+  }
 
   if (case == "title") {
     county <- dplyr::case_when(
