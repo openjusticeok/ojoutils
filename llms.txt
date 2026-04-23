@@ -1,0 +1,40 @@
+We find ourselves repeating the same simple tasks or running a series of
+R commands over and over again. No more!
+
+# Package index
+
+## All functions
+
+- [`describe_change()`](https://openjusticeok.github.io/ojoutils/reference/describe_change.md)
+  : Describe Change
+- [`dir_empty()`](https://openjusticeok.github.io/ojoutils/reference/dir_empty.md)
+  : Directory Empty?
+- [`gcs_auth_bucket()`](https://openjusticeok.github.io/ojoutils/reference/gcs_auth_bucket.md)
+  : Authenticate with Google Cloud Storage
+- [`gcs_list_objects()`](https://openjusticeok.github.io/ojoutils/reference/gcs_list_objects.md)
+  : List objects in a Google Cloud Storage bucket
+- [`gcs_read_csv()`](https://openjusticeok.github.io/ojoutils/reference/gcs_read_csv.md)
+  : Read a CSV file from Google Cloud Storage
+- [`gcs_write_csv()`](https://openjusticeok.github.io/ojoutils/reference/gcs_write_csv.md)
+  : Write a CSV file to Google Cloud Storage
+- [`limit()`](https://openjusticeok.github.io/ojoutils/reference/limit.md)
+  : Limit
+- [`ojo_counties`](https://openjusticeok.github.io/ojoutils/reference/ojo_counties.md)
+  : Oklahoma Counties
+- [`ojo_create_project()`](https://openjusticeok.github.io/ojoutils/reference/ojo_create_project.md)
+  : Create Project
+- [`ojo_parse_county()`](https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.md)
+  : Parse Oklahoma Counties
+- [`ojo_use_template()`](https://openjusticeok.github.io/ojoutils/reference/ojo_use_template.md)
+  : Function to use the OJO quarto HTML template
+- [`tar_gcs_csv()`](https://openjusticeok.github.io/ojoutils/reference/tar_gcs_csv.md)
+  : Create a targets pipeline target for writing CSVs to GCS
+
+# Articles
+
+### All vignettes
+
+- [How to use
+  \`describe_change\`](https://openjusticeok.github.io/ojoutils/articles/describe-change.md):
+- [Creating New OJO
+  Projects](https://openjusticeok.github.io/ojoutils/articles/project-creation.md):

@@ -9,6 +9,10 @@
 <url><loc>https://openjusticeok.github.io/ojoutils/news/index.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/describe_change.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/dir_empty.html</loc></url>
+<url><loc>https://openjusticeok.github.io/ojoutils/reference/gcs_auth_bucket.html</loc></url>
+<url><loc>https://openjusticeok.github.io/ojoutils/reference/gcs_list_objects.html</loc></url>
+<url><loc>https://openjusticeok.github.io/ojoutils/reference/gcs_read_csv.html</loc></url>
+<url><loc>https://openjusticeok.github.io/ojoutils/reference/gcs_write_csv.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/index.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/limit.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/ojo_counties.html</loc></url>
@@ -16,5 +20,6 @@
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/ojo_use_template.html</loc></url>
 <url><loc>https://openjusticeok.github.io/ojoutils/reference/ojoutils-package.html</loc></url>
+<url><loc>https://openjusticeok.github.io/ojoutils/reference/tar_gcs_csv.html</loc></url>
 </urlset>
 
