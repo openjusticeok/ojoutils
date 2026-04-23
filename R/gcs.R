@@ -202,7 +202,7 @@ gcs_write_csv <- function(data, bucket, object, meta = FALSE) {
 #' @importFrom dplyr pull
 #' @export
 gcs_list_objects <- function(bucket, prefix = NULL) {
-  googleCloudStorageR::gcs_list_objects(bucket = bucket, prefix = prefix) |> dplyr::pull(name)
+  googleCloudStorageR::gcs_list_objects(bucket = bucket, prefix = prefix) |> dplyr::pull("name")
 }
 
 #' Create a targets pipeline target for writing CSVs to GCS

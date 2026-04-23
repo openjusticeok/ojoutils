@@ -12,6 +12,24 @@ ojo_create_project(
   packages = NULL
 )
 }
+\arguments{
+\item{name}{Character string. Name of the project/repo. If \code{NULL}, will attempt
+interactive prompt.}
+
+\item{description}{Character string. Description of the project for GitHub.}
+
+\item{dir}{Character string. Directory where project should be created.
+Defaults to current working directory.}
+
+\item{private}{Logical. Whether the GitHub repository should be private.
+Defaults to \code{TRUE}.}
+
+\item{packages}{Character vector. Additional packages to install in the
+project's renv environment. Currently not implemented.}
+}
+\value{
+Invisible path to the created project directory.
+}
 \description{
 Creates a new R project with a standard directory structure
 }
@@ -21,3 +39,9 @@ To learn more about creating projects, see the vignette:
 \code{vignette("project-creation", package = "ojotools")}
 }
 
+\examples{
+\dontrun{
+ojo_create_project("my-analysis", "Analysis of court data")
+}
+
+}

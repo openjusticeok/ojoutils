@@ -5,7 +5,32 @@
 #' To learn more about creating projects, see the vignette:
 #' \code{vignette("project-creation", package = "ojotools")}
 #'
+#' @param name Character string. Name of the project/repo. If `NULL`, will attempt
+#'   interactive prompt.
+#' @param description Character string. Description of the project for GitHub.
+#' @param dir Character string. Directory where project should be created.
+#'   Defaults to current working directory.
+#' @param private Logical. Whether the GitHub repository should be private.
+#'   Defaults to `TRUE`.
+#' @param packages Character vector. Additional packages to install in the
+#'   project's renv environment. Currently not implemented.
 #'
+#' @return Invisible path to the created project directory.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' ojo_create_project("my-analysis", "Analysis of court data")
+#' }
+#'
+#' @importFrom fs path_wd path_abs
+#' @importFrom rlang is_interactive abort
+#' @importFrom gh gh
+#' @importFrom usethis create_from_github
+#' @importFrom glue glue
+#' @importFrom readr write_lines
+#' @importFrom renv init install
+#' @importFrom gert git_add git_commit git_push
 ojo_create_project <- function(name = NULL, description = NULL, dir = ".", private = TRUE, packages = NULL) {
   # Get the initial working directory
   init_wd <- fs::path_wd()
