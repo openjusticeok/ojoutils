@@ -1,0 +1,67 @@
+---
+output: github_document
+---
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/openjusticeok/ojoutils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/openjusticeok/ojoutils/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+<!-- badges: start -->
+[![extendr](https://img.shields.io/badge/extendr-^0.9.0-276DC2)](https://extendr.github.io/extendr/extendr_api/)
+<!-- badges: end -->
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ojoutils
+
+A Collection of Nifty Functions and Objects for OJO Analysts
+
+## Installation
+
+You can install the development version of ojoutils from [GitHub](https://github.com/) with:
+
+``` r
+remotes::install_github("openjusticeok/ojoutils")
+```
+
+## Features
+
+### Oklahoma Data
+
+- `ojo_counties` - Vector of Oklahoma county names
+- `ojo_parse_county()` - Standardize Oklahoma county names
+
+### Data Analysis
+
+- `count_interval()` - Count active intervals over time periods using Rust/Arrow backend
+- `limit()` - SQL-style row limiting
+
+### Project Management
+
+- `ojo_create_project()` - Create standardized OJO project from template
+- `ojo_use_template()` - Add Quarto report template to project
+
+### Google Cloud Storage (GCS)
+
+- `gcs_auth_bucket()` - Authenticate with GCS and set default bucket
+- `gcs_read_csv()` - Read CSV files from GCS using Arrow
+- `gcs_write_csv()` - Write CSV files to GCS
+- `gcs_list_objects()` - List objects in a GCS bucket
+- `tar_gcs_csv()` - Create targets pipeline targets for GCS CSVs
+
+## Documentation
+
+See the [package website](https://openjusticeok.github.io/ojoutils/) for full documentation and vignettes.
+
+## License
+
+GPL (>= 3)

@@ -1,3 +1,10 @@
+# ojoutils 0.2.0 (2026-04-23)
+
+- Adds Google Cloud Storage (GCS) utilities: `gcs_auth_bucket()`, `gcs_read_csv()`, `gcs_write_csv()`, `gcs_list_objects()`, and `tar_gcs_csv()` for working with GCS via the arrow package.
+- Adds `count_interval()` function with Rust and Arrow backend for counting active intervals over time periods.
+- Adds `README.Rmd` and `README.md` to repo.
+- Fixes `ojo_parse_county()` to eliminate dplyr 1.2.0 deprecation warning by replacing `case_when()` with if/else statements.
+
 # ojoutils 0.1.3
 
 # ojoutils 0.1.2 (2024-03-12)
