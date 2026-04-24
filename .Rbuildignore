@@ -17,3 +17,6 @@
 ^src/Makevars$
 ^src/Makevars\.win$
 ^README\.Rmd$
+^\.envrc$
+^.direnv$
+^flake\.(lock|nix)$
