@@ -2,6 +2,45 @@ validate_project_name <- function(name) {
   stringr::str_detect(name, "^[a-z0-9]+(-[a-z0-9]+)*$")
 }
 
+prompt_project_name <- function() {
+  project_name <- readline(cli::format_inline("Project name (kebab-case): "))
+  while (!validate_project_name(project_name)) {
+    cli::cli_alert_danger("Invalid name. Use lowercase, numbers, hyphens only.")
+    project_name <- readline(cli::format_inline("Project name (kebab-case): "))
+  }
+  project_name
+}
+
+prompt_parent_dir <- function(default = fs::path_wd()) {
+  prompt_text <- cli::format_inline("Parent directory [{.path {default}}]: ")
+  parent_dir <- readline(prompt_text)
+  if (parent_dir == "") {
+    parent_dir <- default
+  }
+  parent_dir <- fs::path_abs(parent_dir)
+  if (!fs::dir_exists(parent_dir)) {
+    cli::cli_alert_info("Creating parent directory {.path {parent_dir}}...")
+    fs::dir_create(parent_dir, recurse = TRUE)
+  }
+  parent_dir
+}
+
+prompt_template <- function(default = "website") {
+  choices <- c(
+    "website" = "website (multi-page site)",
+    "report" = "report (single-page document)"
+  )
+  # Pre-select default by putting it first
+  if (default == "report") {
+    choices <- choices[c("report", "website")]
+  }
+  choice <- utils::menu(choices, title = cli::format_inline("Select template type:"))
+  if (choice == 0L) {
+    return(invisible())
+  }
+  names(choices)[choice]
+}
+
 #' @title Function to use the OKPolicy quarto website template
 #' @description Wrapper for `quarto use template` command. Creates a new project directory
 #'   and installs a Quarto template. The project name is derived from the last component
@@ -9,6 +48,7 @@ validate_project_name <- function(name) {
 #' @param path Character. The path to the project directory. Can be absolute or relative
 #'   to the current working directory. The last component of the path will be used as the
 #'   project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).
+#'   If `NULL` (default) and in interactive mode, prompts for project name and location.
 #' @param template Character. The type of project template to use. Must be one of:
 #'   * `"website"` (default) - Multi-page website template
 #'   * `"report"` - Single-page report template
@@ -19,6 +59,9 @@ validate_project_name <- function(name) {
 #'
 #' @examples
 #' \dontrun{
+#' # Interactive mode (prompts for project name and location)
+#' ojo_use_template()
+#'
 #' # Create a new website project (default)
 #' ojo_use_template("my-new-website")
 #'
@@ -33,10 +76,29 @@ validate_project_name <- function(name) {
 #' }
 #' @export
 ojo_use_template <- function(
-    path,
+    path = NULL,
     template = c("website", "report"),
     .interactive = rlang::is_interactive()
 ) {
+  # If path is NULL and interactive, enter full interactive mode
+  if (is.null(path)) {
+    if (!.interactive) {
+      cli::cli_abort("{.arg path} is required in non-interactive mode.")
+    }
+
+    project_name <- prompt_project_name()
+    parent_dir <- prompt_parent_dir()
+    selected_template <- prompt_template()
+
+    # Handle cancellation from template prompt
+    if (is.null(selected_template)) {
+      return(invisible())
+    }
+
+    template <- selected_template
+    path <- fs::path(parent_dir, project_name)
+  }
+
   # Validate template argument
   template <- rlang::arg_match(template)
 
