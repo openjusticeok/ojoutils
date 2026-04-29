@@ -6,8 +6,7 @@
 \usage{
 ojo_use_template(
   path,
-  template =
-    "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
+  template = c("website", "report"),
   .interactive = rlang::is_interactive()
 )
 }
@@ -16,8 +15,11 @@ ojo_use_template(
 to the current working directory. The last component of the path will be used as the
 project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).}
 
-\item{template}{Character. The name of the Quarto template to use.
-Default is "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev".}
+\item{template}{Character. The type of project template to use. Must be one of:
+\itemize{
+\item \code{"website"} (default) - Multi-page website template
+\item \code{"report"} - Single-page report template
+}}
 
 \item{.interactive}{Logical. Whether to prompt for user confirmation in interactive mode.
 Defaults to \code{rlang::is_interactive()}.}
@@ -32,19 +34,16 @@ of the path and must be in kebab-case format.
 }
 \examples{
 \dontrun{
-# Create a new project in the current directory
-ojo_use_template("my-new-project")
+# Create a new website project (default)
+ojo_use_template("my-new-website")
+
+# Create a report project
+ojo_use_template("my-new-report", template = "report")
 
 # Create a project in a specific directory
-ojo_use_template("~/Documents/Reports/my-new-project")
+ojo_use_template("~/Documents/Reports/my-new-website")
 
 # Create a project with interactive turned off
-ojo_use_template("my-new-project", .interactive = FALSE)
-
-# Use a different template
-ojo_use_template(
-  "my-new-project",
-  template = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
-)
+ojo_use_template("my-new-website", .interactive = FALSE)
 }
 }
