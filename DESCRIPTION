@@ -23,6 +23,8 @@ Imports:
     janitor,
     lubridate,
     nanoarrow,
+    processx,
+    quarto,
     readr,
     renv,
     rlang,

@@ -1,135 +1,54 @@
-#' @title Ask for Yes/No Confirmation
-#'
-#' @description Interactive yes/no confirmation with cli styling.
-#'   Returns TRUE for yes, FALSE for no. Follows the pattern from cli issue #488.
-#'
-#' @param text The question text (supports cli styling)
-#' @param yes Character vector of affirmative options (default: c("Yes", "yeah"))
-#' @param no Character vector of negative options (default: c("No", "nope"))
-#' @param n_yes Number of yes options to show (default: 1)
-#' @param n_no Number of no options to show (default: 1)
-#' @param shuffle Whether to shuffle the options (default: TRUE)
-#' @param ... Additional arguments passed to cli::cli_alert()
-#' @param .envir Environment for glue interpolation
-#'
-#' @return Logical TRUE for yes, FALSE for no
-#'
-#' @keywords internal
-#'
-#' @examples
-#' \dontrun{
-#' # Simple confirmation
-#' if (cli_yeah("Delete all files?")) {
-#'   # Proceed with deletion
-#' }
-#'
-#' # Custom options
-#' proceed <- cli_yeah(
-#'   "Continue with migration?",
-#'   yes = c("Yes, proceed", "Continue"),
-#'   no = c("Cancel", "Stop")
-#' )
-#' }
-cli_yeah <- function(
-  text,
-  yes = c("Yes", "yeah"),
-  no = c("No", "nope"),
-  n_yes = 1,
-  n_no = 1,
-  shuffle = TRUE,
-  ...,
-  .envir = parent.frame()
-) {
-  if (!rlang::is_interactive()) {
-    cli::cli_abort(
-      c(
-        "User input required, but session is not interactive.",
-        i = "Query: {text}"
-      ),
-      .envir = .envir
-    )
-  }
-
-  n_yes <- min(n_yes, length(yes))
-  n_no <- min(n_no, length(no))
-
-  # Sample options
-  qs <- c(sample(yes, n_yes), sample(no, n_no))
-
-  if (shuffle) {
-    qs <- sample(qs)
-  }
-
-  # Show the question
-  cli::cli_alert(text, ..., .envir = .envir)
-
-  # Present menu and get choice
-  choice <- utils::menu(qs, title = "Choose an option:")
-
-  # Return TRUE if yes option selected
-  choice != 0L && qs[[choice]] %in% yes
-}
-
 #' @title Function to use the OKPolicy quarto website template
-#' @description Wrapper for `quarto use template` command.
-#' @param base_dir The base directory where the new project folder will be created. Will default to current dir in terminal.
-#' @param project_name The name of the new project folder to create. This will create a sub-directory for the new project.
-#' @param template The name of the Quarto template to use. Default is "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template".
-#' @param .interactive set if environment is interactive or not. Default is TRUE (terminal is interactive).
+#' @description Wrapper for `quarto use template` command. Creates a new project directory
+#'   and installs a Quarto template. The project name is derived from the last component
+#'   of the path and must be in kebab-case format.
+#' @param path Character. The path to the project directory. Can be absolute or relative
+#'   to the current working directory. The last component of the path will be used as the
+#'   project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).
+#' @param template Character. The name of the Quarto template to use.
+#'   Default is "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev".
+#' @param .interactive Logical. Whether to prompt for user confirmation in interactive mode.
+#'   Defaults to `rlang::is_interactive()`.
+#'
+#' @return Invisibly returns the result of the quarto command execution.
 #'
 #' @examples
 #' \dontrun{
 #' # Create a new project in the current directory
-#' ojo_use_template(project_name = "my_new_project")
+#' ojo_use_template("my-new-project")
 #'
-#' # Create a project in a specific base directory
-#' ojo_use_template(
-#'   base_dir = "C:/Users/Documents/Reports",
-#'   project_name = "my_new_project"
-#' )
+#' # Create a project in a specific directory
+#' ojo_use_template("~/Documents/Reports/my-new-project")
+#'
+#' # Create a project with interactive turned off
+#' ojo_use_template("my-new-project", .interactive = FALSE)
 #' 
-#' # Create a project in a specific base directory with interactive turned off
+#' # Use a different template
 #' ojo_use_template(
-#'   base_dir = "C:/Users/Documents/Reports",
-#'   project_name = "my_new_project",
-#'   .interactive = FALSE
-#' )
-#' 
-#' # Can even specify another template
-#' ojo_use_template(
-#'   base_dir = "C:/Users/Documents/Reports",
-#'   project_name = "my_new_project",
-#'   template = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template",
-#'   .interactive = FALSE
+#'   "my-new-project",
+#'   template = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
 #' )
 #' }
 #' @export
 ojo_use_template <- function(
-    base_dir = ".",
-    project_name,
+    path,
     template = "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
     .interactive = rlang::is_interactive()
 ) {
-  quarto_args <- c("use", "template", template, "--no-prompt")
-
   # Path Resolution
-  project_dir <- fs::path_abs(fs::path(base_dir, project_name))
+  project_dir <- fs::path_abs(path)
+  project_name <- fs::path_file(path)
 
-  # Check if directory already exists
-  #     if it exists installation will abort with error message posted to CLI
-  if (fs::dir_exists(project_dir)) {
-    cli::cli_abort(
-      c(
-        "x" = "Directory {.path {project_dir}} already exists!",
-        "i" = "Please choose a different {.arg project_name} or remove the existing directory."
-      )
-    )
+  # Validate report name
+  if (!stringr::str_detect(project_name, "^[a-z0-9]+(-[a-z0-9]+)*$")) {
+    cli::cli_abort(c(
+      "x" = "{.arg path} must end with a valid kebab-case project name.",
+      "i" = "Allowed: lowercase letters, numbers, hyphens",
+      "i" = "Examples: {.code my-project}, {.code report-2024}, {.code data-analysis}"
+    ))
   }
 
-  # Check if quarto is installed
-  if (!requireNamespace("quarto", quietly = TRUE)) {
-    cli::cli_abort("The {.pkg quarto} package is required to find the Quarto installation.")
-  }
+  quarto_args <- c("use", "template", template, "--no-prompt")
 
   # Find the executable
   quarto_bin <- quarto::quarto_path(normalize = TRUE)
@@ -138,20 +57,36 @@ ojo_use_template <- function(
   if (is.null(quarto_bin) || !nzchar(quarto_bin)) {
     cli::cli_abort("Quarto is not installed or could not be found.")
   }
+  # Directory handling logic
+  success <- FALSE
+  
+  if (!fs::dir_exists(project_dir)) {
+    # Directory doesn't exist, create automatically
+    cli::cli_alert_info("Creating directory {.path {project_dir}}...")
+    fs::dir_create(project_dir)
 
-  # Confirm user wants to proceed
-  if (.interactive) {
-    if (!cli_yeah("Create directory {.path {project_dir}} and install the template?")) {
+    # Set up cleanup on failure
+    on.exit(if (!success) try(fs::dir_delete(project_dir), silent = TRUE), add = TRUE)
+  } else {
+    # Directory exists, check if empty
+    if (!dir_empty(project_dir)) {
+      # Directory not empty, abort
+      cli::cli_abort(c(
+        "x" = "Directory {.path {project_dir}} exists and is not empty.",
+        "i" = "Remove the directory first or choose a different path."
+      ))
+    }
+    # Directory exists but empty, proceed without asking
+  }
+
+  # Confirm user wants to proceed (only for new directories in interactive mode)
+  if (.interactive && !fs::dir_exists(project_dir)) {
+    if (!cli_yeah("Install the template to {.path {project_dir}}?")) {
       cli::cli_alert_info("Aborted by user.")
+      fs::dir_delete(project_dir)
       return(invisible())
     }
   }
-
-  # Create the target directory
-  cli::cli_alert_info("Creating directory {.path {project_dir}}...")
-  fs::dir_create(project_dir)
-  success <- FALSE
-  on.exit(if (!success) try(fs::dir_delete(project_dir), silent = TRUE), add = TRUE)
 
   cli::cli_alert_info("Running {.code quarto use template {template}}...")
   
