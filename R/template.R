@@ -104,8 +104,8 @@ ojo_use_template <- function(
 
   # Map friendly names to GitHub template specs
   template_spec <- switch(template,
-    website = "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
-    report = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
+    website = "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template",
+    report = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template"
   )
 
   # Path Resolution
