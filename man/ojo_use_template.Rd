@@ -2,23 +2,49 @@
 % Please edit documentation in R/template.R
 \name{ojo_use_template}
 \alias{ojo_use_template}
-\title{Function to use the OJO quarto HTML template}
+\title{Function to use the OKPolicy quarto website template}
 \usage{
-ojo_use_template(path, template = "openjusticeok/ojo-report-template")
+ojo_use_template(
+  path,
+  template =
+    "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
+  .interactive = rlang::is_interactive()
+)
 }
 \arguments{
-\item{path}{The name of the directory where the template should be added. This should be a string representing an absolute path, or a path relative to the current working directory.}
+\item{path}{Character. The path to the project directory. Can be absolute or relative
+to the current working directory. The last component of the path will be used as the
+project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).}
 
-\item{template}{The name of the Quarto template to use. This should be a string in the format "username/repository". Default is "openjusticeok/ojo-report-template".}
+\item{template}{Character. The name of the Quarto template to use.
+Default is "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev".}
+
+\item{.interactive}{Logical. Whether to prompt for user confirmation in interactive mode.
+Defaults to \code{rlang::is_interactive()}.}
 }
 \value{
-This function does not return a value. If the user chooses not to proceed with the operation, the function exits silently.
+Invisibly returns the result of the quarto command execution.
 }
 \description{
-Wrapper for \verb{quarto use template} command. Defaults to OJO html template.
+Wrapper for \verb{quarto use template} command. Creates a new project directory
+and installs a Quarto template. The project name is derived from the last component
+of the path and must be in kebab-case format.
 }
 \examples{
 \dontrun{
-ojo_use_template(template = "openjusticeok/ojo-report-template", path = "my_directory")
+# Create a new project in the current directory
+ojo_use_template("my-new-project")
+
+# Create a project in a specific directory
+ojo_use_template("~/Documents/Reports/my-new-project")
+
+# Create a project with interactive turned off
+ojo_use_template("my-new-project", .interactive = FALSE)
+
+# Use a different template
+ojo_use_template(
+  "my-new-project",
+  template = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
+)
 }
 }
