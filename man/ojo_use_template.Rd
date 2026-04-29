@@ -5,7 +5,7 @@
 \title{Function to use the OKPolicy quarto website template}
 \usage{
 ojo_use_template(
-  path,
+  path = NULL,
   template = c("website", "report"),
   .interactive = rlang::is_interactive()
 )
@@ -13,7 +13,8 @@ ojo_use_template(
 \arguments{
 \item{path}{Character. The path to the project directory. Can be absolute or relative
 to the current working directory. The last component of the path will be used as the
-project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).}
+project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).
+If \code{NULL} (default) and in interactive mode, prompts for project name and location.}
 
 \item{template}{Character. The type of project template to use. Must be one of:
 \itemize{
@@ -34,6 +35,9 @@ of the path and must be in kebab-case format.
 }
 \examples{
 \dontrun{
+# Interactive mode (prompts for project name and location)
+ojo_use_template()
+
 # Create a new website project (default)
 ojo_use_template("my-new-website")
 
