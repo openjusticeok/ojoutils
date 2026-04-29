@@ -1,3 +1,7 @@
+validate_project_name <- function(name) {
+  stringr::str_detect(name, "^[a-z0-9]+(-[a-z0-9]+)*$")
+}
+
 #' @title Function to use the OKPolicy quarto website template
 #' @description Wrapper for `quarto use template` command. Creates a new project directory
 #'   and installs a Quarto template. The project name is derived from the last component
@@ -46,8 +50,8 @@ ojo_use_template <- function(
   project_dir <- fs::path_abs(path)
   project_name <- fs::path_file(path)
 
-  # Validate report name
-  if (!stringr::str_detect(project_name, "^[a-z0-9]+(-[a-z0-9]+)*$")) {
+  # Validate project name
+  if (!validate_project_name(project_name)) {
     cli::cli_abort(c(
       "x" = "{.arg path} must end with a valid kebab-case project name.",
       "i" = "Allowed: lowercase letters, numbers, hyphens",
