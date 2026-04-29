@@ -5,8 +5,9 @@
 #' @param path Character. The path to the project directory. Can be absolute or relative
 #'   to the current working directory. The last component of the path will be used as the
 #'   project name and must be in kebab-case (lowercase letters, numbers, and hyphens only).
-#' @param template Character. The name of the Quarto template to use.
-#'   Default is "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev".
+#' @param template Character. The type of project template to use. Must be one of:
+#'   * `"website"` (default) - Multi-page website template
+#'   * `"report"` - Single-page report template
 #' @param .interactive Logical. Whether to prompt for user confirmation in interactive mode.
 #'   Defaults to `rlang::is_interactive()`.
 #'
@@ -14,27 +15,33 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Create a new project in the current directory
-#' ojo_use_template("my-new-project")
+#' # Create a new website project (default)
+#' ojo_use_template("my-new-website")
+#'
+#' # Create a report project
+#' ojo_use_template("my-new-report", template = "report")
 #'
 #' # Create a project in a specific directory
-#' ojo_use_template("~/Documents/Reports/my-new-project")
+#' ojo_use_template("~/Documents/Reports/my-new-website")
 #'
 #' # Create a project with interactive turned off
-#' ojo_use_template("my-new-project", .interactive = FALSE)
-#' 
-#' # Use a different template
-#' ojo_use_template(
-#'   "my-new-project",
-#'   template = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
-#' )
+#' ojo_use_template("my-new-website", .interactive = FALSE)
 #' }
 #' @export
 ojo_use_template <- function(
     path,
-    template = "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
+    template = c("website", "report"),
     .interactive = rlang::is_interactive()
 ) {
+  # Validate template argument
+  template <- rlang::arg_match(template)
+
+  # Map friendly names to GitHub template specs
+  template_spec <- switch(template,
+    website = "openjusticeok/okpolicy-quarto-templates/okpolicy-website-template@mason-dev",
+    report = "openjusticeok/okpolicy-quarto-templates/okpolicy-report-template@mason-dev"
+  )
+
   # Path Resolution
   project_dir <- fs::path_abs(path)
   project_name <- fs::path_file(path)
@@ -48,7 +55,7 @@ ojo_use_template <- function(
     ))
   }
 
-  quarto_args <- c("use", "template", template, "--no-prompt")
+  quarto_args <- c("use", "template", template_spec, "--no-prompt")
 
   # Find the executable
   quarto_bin <- quarto::quarto_path(normalize = TRUE)
@@ -88,8 +95,8 @@ ojo_use_template <- function(
     }
   }
 
-  cli::cli_alert_info("Running {.code quarto use template {template}}...")
-  
+  cli::cli_alert_info("Installing {.field {template}} template to {.path {project_dir}}...")
+
   # Error/Status/StdErr/StdOut capturing
   result <- tryCatch(
     withr::with_dir(
@@ -136,7 +143,7 @@ ojo_use_template <- function(
 
   success <- TRUE
   cli::cli_alert_success(
-    "Template {.val {template}} successfully added to directory {.path {project_dir}}!"
+    "{.field {template}} template successfully added to directory {.path {project_dir}}!"
   )
 
   invisible(result)
