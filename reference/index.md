@@ -25,6 +25,6 @@
 - [`ojo_parse_county()`](https://openjusticeok.github.io/ojoutils/reference/ojo_parse_county.md)
   : Parse Oklahoma Counties
 - [`ojo_use_template()`](https://openjusticeok.github.io/ojoutils/reference/ojo_use_template.md)
-  : Function to use the OJO quarto HTML template
+  : Function to use the OKPolicy quarto website template
 - [`tar_gcs_csv()`](https://openjusticeok.github.io/ojoutils/reference/tar_gcs_csv.md)
   : Create a targets pipeline target for writing CSVs to GCS

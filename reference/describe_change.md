@@ -62,6 +62,7 @@ the values themselves.
 ## Examples
 
 ``` r
+
 # Basic usage with defaults
 describe_change(
   before = 1,

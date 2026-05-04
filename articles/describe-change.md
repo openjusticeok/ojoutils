@@ -19,6 +19,7 @@ To describe the change between two numeric values, you can call
 (`after`), and specify the type of input and output units. For example:
 
 ``` r
+
 # Describing a percentage decrease
 describe_change(
   before = 1,
@@ -40,6 +41,7 @@ in the output, set the `include_values` argument to `TRUE`. This can be
 useful when you want to provide more context in your description.
 
 ``` r
+
 # Including before and after values in the description
 describe_change(
   before = 100,
@@ -61,6 +63,7 @@ changes by providing a `direction_phrases` argument. This argument
 allows you to specify your own phrasing for each case.
 
 ``` r
+
 # Custom phrasing for increase and decrease
 describe_change(
   before = 33,
@@ -87,6 +90,7 @@ template argument. You can include placeholders such as `{direction}`,
 description.
 
 ``` r
+
 # Custom template for describing the change in people
 describe_change(
   before = 10,
@@ -107,6 +111,7 @@ The function is designed to handle common edge cases, such as when the
 initial and new values are the same:
 
 ``` r
+
 # No change in values
 describe_change(
   before = 50,
@@ -128,6 +133,7 @@ combinations require the before value to be non-zero. If an invalid
 combination is detected, an error is raised:
 
 ``` r
+
 # Invalid combination where 'before' is zero and output unit is 'percent'
 describe_change(
   before = 0,

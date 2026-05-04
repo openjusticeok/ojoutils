@@ -15,6 +15,7 @@ The simplest way to create a new project is to provide a name and
 description:
 
 ``` r
+
 ojo_create_project(
   name = "my-new-project",
   description = "A project to analyze court data"
@@ -43,6 +44,7 @@ This will:
 Here’s an example using all available parameters:
 
 ``` r
+
 ojo_create_project(
   name = "court-data-analysis",
   description = "Analysis of Oklahoma court data for 2023",
