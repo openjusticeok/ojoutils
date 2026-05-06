@@ -3,7 +3,8 @@ Title: A Collection of Nifty Functions and Objects for OJO Analysts
 Version: 0.3.0
 Authors@R: c(
     person("Brancen", "Gregory", , "brancengregory@gmail.com", role = c("aut", "cre")),
-    person("Andrew", "Bell", , "abell@okpolicy.org", role = "aut"))
+    person("Andrew", "Bell", , "abell@okpolicy.org", role = "aut"),
+    person("Mason", "Counts", , "mcounts@okpolicy.org", role = "aut"))
 Description: We find ourselves repeating the same simple tasks or running a series of R commands over and over again. No more!
 License: GPL (>= 3)
 Encoding: UTF-8
