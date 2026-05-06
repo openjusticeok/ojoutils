@@ -22,6 +22,7 @@ Authors:
 \itemize{
   \item Brancen Gregory \email{brancengregory@gmail.com}
   \item Andrew Bell \email{abell@okpolicy.org}
+  \item Mason Counts \email{mcounts@okpolicy.org}
 }
 
 }
