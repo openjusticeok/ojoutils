@@ -1,6 +1,6 @@
 Package: ojoutils
 Title: A Collection of Nifty Functions and Objects for OJO Analysts
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: c(
     person("Brancen", "Gregory", , "brancengregory@gmail.com", role = c("aut", "cre")),
     person("Andrew", "Bell", , "abell@okpolicy.org", role = "aut"))
@@ -8,7 +8,6 @@ Description: We find ourselves repeating the same simple tasks or running a seri
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
     arrow,
     cli,
@@ -47,3 +46,4 @@ Config/rextendr/version: 0.5.0
 SystemRequirements: Cargo (Rust's package manager), rustc >= 1.65.0, xz
 Depends: 
     R (>= 4.2)
+Config/roxygen2/version: 8.0.0

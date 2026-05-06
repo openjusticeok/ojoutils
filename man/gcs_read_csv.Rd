@@ -46,6 +46,6 @@ data <- gcs_read_csv("my-project-data", "processed/sales_2024.csv")
 
 }
 \seealso{
-\code{\link[arrow:read_delim_arrow]{arrow::read_csv_arrow()}} for reading options,
+\code{\link[arrow:read_csv_arrow]{arrow::read_csv_arrow()}} for reading options,
 \code{\link[janitor:clean_names]{janitor::clean_names()}} for name cleaning details
 }

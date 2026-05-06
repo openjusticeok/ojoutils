@@ -20,6 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Brancen Gregory \email{brancengregory@gmail.com}
   \item Andrew Bell \email{abell@okpolicy.org}
 }
 
