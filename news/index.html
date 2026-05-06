@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ojoutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,43 @@
 
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="ojoutils-030-2026-05-04">ojoutils 0.3.0 (2026-05-04)<a class="anchor" aria-label="anchor" href="#ojoutils-030-2026-05-04"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-3-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-0"></a></h3>
+<ul><li>
+<code><a href="../reference/ojo_use_template.html">ojo_use_template()</a></code> has been completely rewritten with a new API:
+<ul><li>Changed from separate <code>base_dir</code> and <code>project_name</code> parameters to a single <code>path</code> parameter</li>
+<li>Project names must now be in <strong>kebab-case</strong> format (lowercase letters, numbers, and hyphens only)</li>
+<li>Automatically creates the directory if it doesn’t exist</li>
+<li>Aborts with an error if the directory already exists and is non-empty</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-3-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-3-0"></a></h3>
+<ul><li>
+<code><a href="../reference/ojo_use_template.html">ojo_use_template()</a></code> now supports <strong>full interactive mode</strong> - when called without arguments in an interactive R session, it prompts for:
+<ul><li>Project name (with kebab-case validation)</li>
+<li>Parent directory location</li>
+<li>Template type (website or report)</li>
+</ul></li>
+<li>Added support for two distinct templates:
+<ul><li>
+<code>"website"</code> (default) - Multi-page Quarto website from <code>okpolicy-website-template</code>
+</li>
+<li>
+<code>"report"</code> - Single-page Quarto report from <code>okpolicy-report-template</code>
+</li>
+</ul></li>
+<li>New <code><a href="../reference/cli_yeah.html">cli_yeah()</a></code> helper function for interactive yes/no confirmations with styled cli output</li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvements-0-3-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-3-0"></a></h3>
+<ul><li>Template validation uses <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> for better error messages</li>
+<li>Friendly template names (“website”, “report”) are mapped internally to GitHub repository specs</li>
+<li>Extracted CLI helper functions to <code>R/cli.R</code> for reuse across the package</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="ojoutils-020-2026-04-23">ojoutils 0.2.0 (2026-04-23)<a class="anchor" aria-label="anchor" href="#ojoutils-020-2026-04-23"></a></h2>
 <ul><li>Adds Google Cloud Storage (GCS) utilities: <code><a href="../reference/gcs_auth_bucket.html">gcs_auth_bucket()</a></code>, <code><a href="../reference/gcs_read_csv.html">gcs_read_csv()</a></code>, <code><a href="../reference/gcs_write_csv.html">gcs_write_csv()</a></code>, <code><a href="../reference/gcs_list_objects.html">gcs_list_objects()</a></code>, and <code><a href="../reference/tar_gcs_csv.html">tar_gcs_csv()</a></code> for working with GCS via the arrow package.</li>

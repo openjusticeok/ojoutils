@@ -15,4 +15,6 @@ Useful links:
 
 Authors:
 
+- Brancen Gregory <brancengregory@gmail.com>
+
 - Andrew Bell <abell@okpolicy.org>
