@@ -1,99 +1,46 @@
 {
-  description = "Tulsa County Jail Development Environment";
+  description = "ojoutils — OJO analyst helpers (R package with Rust extensions)";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    ojodb = {
-      url = "github:openjusticeok/ojodb";
-      flake = false;
-    };
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/r-daily";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-parts, ojodb }:
+  outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
-      perSystem = { config, self', inputs', system, ... }:
+      perSystem = { system, ... }:
         let
-          pkgs = import nixpkgs {
+          # Arrow GCS/S3 fix. nixpkgs' arrow-cpp has GCS/S3 (enableGcs defaults
+          # on), but the R `arrow` bindings' configure misdetects it
+          # (ArrowOptions.cmake writes "TRUE" where configure expects "ON"), so R
+          # arrow reports "built without GCS support". Keep this in sync with
+          # flakes/overlays/r-public.nix — it is duplicated here only because this
+          # flake cannot import `flakes` (that would be a dependency cycle).
+          pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [
               (final: prev: {
-                arrow-cpp = prev.arrow-cpp.override {
-                  enableGcs = true;
-                  enableS3 = true;
+                rPackages = prev.rPackages.override {
+                  overrides = {
+                    arrow = prev.rPackages.arrow.overrideAttrs (old: {
+                      env = (old.env or { }) // {
+                        ARROW_R_CXXFLAGS = "-DARROW_R_WITH_GCS -DARROW_R_WITH_S3";
+                        LIBARROW_MINIMAL = "false";
+                        ARROW_USE_PKG_CONFIG = "true";
+                      };
+                    });
+                  };
                 };
               })
             ];
-            config = {
-              permittedInsecurePackages = [
-                "electron-38.8.4"
-              ];
-              problems.handlers = {
-                googleCloudRunner.broken = "warn";
-              };
-            };
           };
 
-          # Override arrow R package to properly detect GCS/S3
-          arrowWithGcs = pkgs.rPackages.arrow.overrideAttrs (oldAttrs: {
-            # Ensure the configure script can find arrow-cpp
-            ARROW_HOME = "${pkgs.arrow-cpp}";
-            # Force using pkg-config
-            ARROW_USE_PKG_CONFIG = "true";
-            # Don't use minimal build
-            LIBARROW_MINIMAL = "false";
-            # Ensure configure can find pkg-config files
-            PKG_CONFIG_PATH = "${pkgs.arrow-cpp}/lib/pkgconfig";
-            # Additional libraries for linking
-            NIX_LDFLAGS = "-L${pkgs.arrow-cpp}/lib -larrow -larrow_compute -larrow_acero -larrow_dataset -lparquet";
-            
-            # Use postPatch to safely modify the source without breaking directory state
-            postPatch = (oldAttrs.postPatch or "") + ''
-              echo "Bypassing regex hell by providing a patched ArrowOptions.cmake..."
-              
-              # 1. Create a local copy of the CMake config and force all "TRUE" values back to "ON"
-              mkdir -p .nix-cmake
-              sed 's/"TRUE"/"ON"/g' ${pkgs.arrow-cpp}/lib/cmake/Arrow/ArrowOptions.cmake > .nix-cmake/ArrowOptions.cmake
-              
-              # 2. Force the configure script to read our patched config instead of the system one
-              # We overwrite the ARROW_OPTS_CMAKE variable definition directly
-              sed -i 's|^ARROW_OPTS_CMAKE=.*|ARROW_OPTS_CMAKE=".nix-cmake/ArrowOptions.cmake"|g' configure
-              
-              # 3. Catch any direct variable usage just to be absolutely certain
-              sed -i 's|$ARROW_OPTS_CMAKE|.nix-cmake/ArrowOptions.cmake|g' configure
-            '';
-          });
-
-          # Ojodb - installed from source
-          ojodb-pkg = pkgs.rPackages.buildRPackage {
-            name = "ojodb";
-            src = ojodb;
-            propagatedBuildInputs = with pkgs.rPackages; [
-              dplyr
-              dbplyr
-              DBI
-              RPostgres
-              ggplot2
-              pool
-              rlang
-              glue
-              stringr
-              purrr
-              tidyr
-              janitor
-              lubridate
-              hms
-              fs
-            ];
-          };
-
-          # R packages to include in the wrapper
-          rPackages = [ ojodb-pkg arrowWithGcs ] ++ (with pkgs.rPackages; [
+          # Runtime deps (DESCRIPTION: Imports).
+          rImports = with pkgs.rPackages; [
+            arrow
             cli
             dbplyr
             dplyr
@@ -106,6 +53,8 @@
             janitor
             lubridate
             nanoarrow
+            processx
+            quarto
             readr
             renv
             rlang
@@ -114,86 +63,46 @@
             tidyr
             usethis
             withr
-            devtools
+          ];
+
+          rDev = with pkgs.rPackages; [
             knitr
             rmarkdown
+            devtools
+            roxygen2
             testthat
-            tibble
-            usethis
-          ]);
+            rcmdcheck
+            pkgload
+            pkgbuild
+            rextendr
+          ];
 
-          # R wrapper with all packages
-          R = pkgs.rWrapper.override {
-            packages = rPackages;
+          # Rust extension toolchain. The package vendors its crates
+          # (src/rust/vendor.tar.xz) and builds offline via tools/config.R.
+          rustTools = with pkgs; [ cargo rustc xz pkg-config ];
+
+          ojoutils = pkgs.rPackages.buildRPackage {
+            name = "ojoutils";
+            src = ./.;
+            propagatedBuildInputs = rImports;
+            nativeBuildInputs = rustTools ++ (with pkgs.rPackages; [ knitr rmarkdown ]);
           };
-          
-          # Wrap RStudio with packages
-          rstudio-wrapped = pkgs.rstudioWrapper.override {
-            packages = rPackages;
-          };
-          
-          # R library path for tools that need it
-          rLibsPath = pkgs.lib.makeLibraryPath rPackages;
         in
         {
-          # Development shell
-          devShells.default = pkgs.mkShell {
-            name = "r-dev";
-
-            buildInputs = [
-              R
-              pkgs.radian
-              pkgs.air-formatter
-              pkgs.jarl
-              pkgs.quarto
-              # Rust toolchain
-              pkgs.rustc
-              pkgs.cargo
-              pkgs.rustfmt
-              pkgs.clippy
-              pkgs.google-cloud-sdk
-              # R CMD check system dependencies
-              pkgs.checkbashisms
-              pkgs.qpdf
-              # rstudio-wrapped  # temporarily disabled due to nixpkgs npm issue
-            ];
-
-            shellHook = ''
-              export PATH="${R}/bin:$PATH"
-              export R_LIBS_SITE="${rLibsPath}"
-              # Ensure Arrow GCS support libraries are available at runtime
-              export ARROW_HOME="${pkgs.arrow-cpp}"
-              export LD_LIBRARY_PATH="${pkgs.arrow-cpp}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-              
-              echo "🚀 R Development Environment"
-              echo ""
-              echo "Available tools:"
-              echo "  - R (with tidyverse, devtools, ojodb, etc.)"
-              echo "  - radian (enhanced R REPL)"
-              echo "  - air (R formatter)"
-              echo "  - jarl (R linter)"
-              echo "  - quarto"
-              echo "  - Rust (rustc, cargo, rustfmt, clippy)"
-              echo ""
-              echo "Quick start:"
-              echo "  R                    # Start R console"
-              echo "  radian               # Enhanced R REPL"
-              echo "  air format .         # Format R code"
-              echo "  jarl .               # Lint R code"
-              echo "  cargo build          # Build Rust project"
-              echo "  cargo test           # Run Rust tests"
-              echo ""
-              echo "Verify Arrow GCS support:"
-              echo "  R -e 'arrow::arrow_info()'"
-              echo ""
-            '';
+          packages = {
+            inherit ojoutils;
+            default = ojoutils;
           };
 
-          # Packages exposed for inspection
-          packages = {
-            inherit R;
-            air = pkgs.air-formatter;
-            jarl = pkgs.jarl;
+          devShells.default = pkgs.mkShell {
+            name = "ojoutils-dev";
+            # checkbashisms: R CMD check's "top-level files" check needs it for
+            # the package's shell `configure` script.
+            buildInputs = [ pkgs.R pkgs.checkbashisms ] ++ rImports ++ rDev ++ rustTools;
+            packages = with pkgs; [ jarl arf air-formatter ];
+            shellHook = ''
+              echo "ojoutils dev shell — R -e 'devtools::check()'"
+            '';
           };
         };
     };

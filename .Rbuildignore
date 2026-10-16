@@ -20,3 +20,4 @@
 ^\.envrc$
 ^.direnv$
 ^flake\.(lock|nix)$
+^result$
