@@ -1,10 +1,10 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   describe-change: describe-change.html
   project-creation: project-creation.html
-last_built: 2026-05-06T23:46Z
+last_built: 2026-11-10T22:09Z
 urls:
   reference: https://openjusticeok.github.io/ojoutils/reference
   article: https://openjusticeok.github.io/ojoutils/articles
